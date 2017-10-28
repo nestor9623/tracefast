@@ -17,18 +17,24 @@ app.controller('CtlValidate', function ($scope, $window) {
         $window.location.href = 'http://localhost:9999';
     }
 });
+/**
+ * Esta es mi configuracion de acceso para un controlador con una pagina web html
+ */
 app.config(function ($routeProvider) {
     $routeProvider
 
+/**
+ * aclar esto es un ejemplo , de que cuanto este direccionando en alguna parte de NODE JS mi servidor a la direccion
+ * /estudiantes se va ejecutar solo y unicament eeste controlador para la url definida como se ejecuta
+ */
             .when('/Estudiantes', {
                 //controller: 'controladorEstudiantes',
                 controller: 'controladorEstudiante',
                 templateUrl: 'estudiante.html'
             })
-            .when('/empleados', {
-                controller: 'ControladorFiltro',
-                templateUrl: 'filters.html'
-            })
+            /**
+             * cuando no se sabe a donde se redirecciona lo mando a la raiz local con el "redirec to:/"
+             */
             .otherwise({
                 redirectTo: '/'
             });

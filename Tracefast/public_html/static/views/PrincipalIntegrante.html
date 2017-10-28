@@ -9,7 +9,7 @@ and open the template in the editor.
         
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dashboard</title>
+        <title>Principal Anonimous</title>
 
         <meta name="description" content="Free Admin Template Based On Twitter Bootstrap 3.x">
         <meta name="author" content="">
@@ -31,17 +31,28 @@ and open the template in the editor.
 
 
 
-        <!------------------------------------------------------------------------>
+        <!---------------------------------ASI SE ADJUNTAN LAS LIBRERIAS--------------------------------------->
+        <!--ESTE ES EL ARCHIVO BOOTSTRAP CSS--->
         <link href="../Dependecias/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <!--ESTE ES MI JQUERY--->
         <script src="../Dependecias/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <!--MI JAVA SCRIPT PARA LAS FUNCIONES DEL BOOTSTRAP--->
         <script src="../Dependecias/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+        <!--MI ARCHIVO ANGULAR JG--->
         <script src="../Dependecias/bower_components/angular/angular.min.js" type="text/javascript"></script>
+        <!--MI ARCHIVO ROUTE PARA MANEJAR EL SCOPE(DATOS- FORMULARIOS) DE SESION--->
         <script src="../Dependecias/bower_components/angular-route/angular-route.min.js" type="text/javascript"></script>
+        <!--MASTER PAGE PARA VALIDAR A DONDE ME REDIRECCIONA O QUE DESEO MOSTRAR EN LA WEB DESDE EL MASTERPAGE--->
         <script src="../js/appMasterPageIntegrante.js" type="text/javascript"></script>
+        <!--CONTROLADOR DEL LOGIN--->
         <script src="../controllers/logIn/logInCtl.js" type="text/javascript"></script>
+        <!--SERVICIO DEL LOGIN--->
         <script src="../controllers/logIn/logInSer.js" type="text/javascript"></script>
+        <!--MI ESTILO EN CSS PARA DAR CIERTOS TOQUES--->
         <link href="../Recursos/Css/MyStyle.css" rel="stylesheet" type="text/css"/>
     </head>
+    <!--EL ARCHIVO ANGULAR QUE ME MANEJARA EL CUERPO DEL DOCUMENTO CON SU CONTROLADOR NO ANTES VALIDANDO LA VARIABLE
+     DE SESION , CON EL NG-SHOW SESION    --->
     <body ng-app="appMasterPageIntegrante" ng-controller="CtlValidate" ng-show="sesion">
         <nav class="navbar navbar-default" role="navigation">
             <div class="navbar-header">

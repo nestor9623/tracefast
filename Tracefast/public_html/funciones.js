@@ -1,32 +1,37 @@
 /*global __dirname*/
+//archivo necesario para ejecutar la consola de node
 var express = require('express');
+//ejecuto en una variable app la instacia de express
 var app = express();
+//requiero una conversion de la estructura del proyecto
 var bodyParser = require('body-parser');
+//uso la estructura del codigo como esta sin necesidad de descodificar el codigo ya como esta
 app.use(bodyParser.urlencoded({extended: false}));
-var formidable = require('formidable');
+//este es mi archivo para las configuraciones de mi conexion con motores de bases de datos y la conexion
 var db = require('./static/dao/db');
+//Lo primordial es agregar mo dao para configurar las opciones que manejare del lado del server con el flujo de datos
 var login = require('./static/dao/daoLogin');
-var proyecto = require('./static/dao/daoProyectos');
-var cargo = require('./static/dao/daoCargo');
-var tarea = require('./static/dao/daoTarea');
-var recurso = require('./static/dao/daoRecurso');
-var integrante = require('./static/dao/daoIntegrantes');
-
-var integrante = require('./static/dao/daoIntegrantes');
-
+//creo una variable servidor
 var server;
 
-
+/**
+ * Creo la configuracion del servidor , donde especifio que puerto escuchara y cual sera la ruta especifica
+ * sobre la cual voy a trabajar
+ * @returns {undefined}
+ */
 
 function configurarServidor() {
-
-    app.use(express.static(__dirname + '/static'));
+        //la direccion donde ejecutare el primer index.html que vea sera en la siguiente
+     app.use(express.static(__dirname + '/static'));
+     //el servidor estaria escuchando en el puerto 9999
     server = app.listen(9999, function () {
+        //muestro un mensaje que estoy corriendo el servidor
         console.log("servidor web iniciado!");
     });
 
 }
-
+//desde la carpeta de static busque la url /login que especificamos en el controlador
+//esto lo permite hacer node sin necesidad de estar buscando directamente en la raiz del directorio
 app.post('/login', function (entrada, respuesta) {
     login.validar(entrada, respuesta);
 });
@@ -34,264 +39,6 @@ app.post('/registrousuario', function (entrada, respuesta) {
     login.registrarUsuario(entrada, respuesta);
 });
 
-app.post('/crearProyecto', function (entrada, respuesta) {
-    proyecto.crearProyecto(entrada, respuesta);
-});
-
-app.get('/listadoForaneaProyectos', function (entrada, respuesta) {
-    cargo.listadoProyectos(entrada, respuesta);
-});
-
-
-app.post('/modificarProyecto', function (entrada, respuesta) {
-    proyecto.modificarProyecto(entrada, respuesta);
-});
-
-
-app.post('/eliminarProyecto', function (entrada, respuesta) {
-    proyecto.eliminarProyecto(entrada, respuesta);
-});
-
-app.post('/buscarProyecto', function (entrada, respuesta) {
-    proyecto.buscarProyecto(entrada, respuesta);
-});
-
-app.post('/listadoProyectos', function (entrada, respuesta) {
-    proyecto.listadoProyectos(entrada, respuesta);
-
-});
-
-
-
-
-
-app.post('/crearCargo', function (entrada, respuesta) {
-    cargo.crearCargo(entrada, respuesta);
-});
-
-app.post('/buscarCargo', function (entrada, respuesta) {
-    cargo.buscarCargo(entrada, respuesta);
-});
-
-app.post('/listarCargo', function (entrada, respuesta) {
-    cargo.listarCargo(entrada, respuesta);
-});
-
-
-app.post('/modificarCargo', function (entrada, respuesta) {
-    cargo.modificarCargo(entrada, respuesta);
-});
-
-
-app.post('/eliminarCargo', function (entrada, respuesta) {
-    cargo.eliminarCargo(entrada, respuesta);
-});
-
-app.post('/buscarCargo', function (entrada, respuesta) {
-    cargo.buscarCargo(entrada, respuesta);
-});
-
-
-app.post('/listarForaneaCargos', function (entrada, respuesta) {
-    cargo.listadoProyectos(entrada, respuesta);
-});
-
-/***
- * LLAMO LAS FUNCIONES PARA LA CREACION DE SERVICIOS DE RECURSOS
- */
-app.post('/crearRecurso', function (entrada, respuesta) {
-    recurso.crearRecurso(entrada, respuesta);
-});
-
-app.post('/buscarRecurso', function (entrada, respuesta) {
-    recurso.buscarRecurso(entrada, respuesta);
-});
-
-app.post('/listarRecurso', function (entrada, respuesta) {
-    recurso.listarRecurso(entrada, respuesta);
-});
-
-app.post('/listarForaneaTarea', function (entrada, respuesta) {
-    recurso.listarForaneaTarea(entrada, respuesta);
-});
-
-app.post('/modificarRecurso', function (entrada, respuesta) {
-    recurso.modificarRecurso(entrada, respuesta);
-});
-
-app.post('/dellRecurso', function (entrada, respuesta) {
-    recurso.eliminarRecuso(entrada, respuesta);
-});
-/**
- *  LLAMO LAS FUNCIONES PARA LA CREACION DE SERVICIOS DE TAREAS
- */
-app.post('/crearTarea', function (entrada, respuesta) {
-    tarea.crearTarea(entrada, respuesta);
-});
-
-app.post('/buscarTarea', function (entrada, respuesta) {
-    tarea.buscarTarea(entrada, respuesta);
-
-});
-
-app.post('/listarTarea', function (entrada, respuesta) {
-    tarea.listarTarea(entrada, respuesta);
-});
-
-app.post('/listarForaneactividad', function (entrada, respuesta) {
-    tarea.listarForaneactividad(entrada, respuesta);
-});
-
-
-app.post('/modificarTarea', function (entrada, respuesta) {
-    tarea.modificarTarea(entrada, respuesta);
-});
-
-app.post('/eliminarTarea', function (entrada, respuesta) {
-    tarea.eliminarTarea(entrada, respuesta);
-});
-/***
- * LLAMO LAS FUNCIOENS PARA LA CREACION DE SERVICIOS EN LA REUNION
- */
-
-
-/*Integrantes*/
-
-app.post('/listarForaneaProyectos', function (entrada, respuesta) {
-    integrante.listadoProyectos(entrada, respuesta);
-});
-
-app.get('/listarIntegrantes', function (entrada, respuesta) {
-    integrante.listadoIntegrantes(respuesta);
-
-
-});
-
-app.post('/buscarIntegrante', function (entrada, respuesta) {
-    integrante.buscarIntegrante(entrada, respuesta);
-});
-
-app.post('/crearIntegrante', function (entrada, respuesta) {
-    integrante.crearIntegrante(entrada, respuesta);
-});
-
-app.post('/eliminarIntegrante', function (entrada, respuesta) {
-    integrante.eliminarIntegrante(entrada, respuesta);
-});
-
-app.post('/modificarIntegrante', function (entrada, respuesta) {
-    integrante.modificarIntegrante(entrada, respuesta);
-});
-
-
-
-
-
-app.get('/listarForaneaProyectos', function (entrada, respuesta) {
-    actividad.listadoProyectos(entrada, respuesta);
-});
-
-app.post('/crearCargo', function (entrada, respuesta) {
-    cargo.crearCargo(entrada, respuesta);
-});
-
-app.post('/buscarCargo', function (entrada, respuesta) {
-    cargo.buscarCargo(entrada, respuesta);
-});
-
-app.post('/listarCargo', function (entrada, respuesta) {
-    cargo.listarCargo(entrada, respuesta);
-});
-
-
-app.post('/modificarCargo', function (entrada, respuesta) {
-    cargo.modificarCargo(entrada, respuesta);
-});
-
-
-app.post('/eliminarCargo', function (entrada, respuesta) {
-    cargo.eliminarCargo(entrada, respuesta);
-});
-
-app.post('/buscarCargo', function (entrada, respuesta) {
-    cargo.buscarCargo(entrada, respuesta);
-});
-
-
-app.post('/listarForaneaCargos', function (entrada, respuesta) {
-    cargo.listadoProyectos(entrada, respuesta);
-});
-
-
-
-/*Integrantes*/
-
-app.post('/listarForaneaProyectos', function (entrada, respuesta) {
-    integrante.listadoProyectos(entrada, respuesta);
-});
-
-app.get('/listarIntegrantes', function (entrada, respuesta) {
-    integrante.listadoIntegrantes(respuesta);
-
-
-});
-
-app.post('/buscarIntegrante', function (entrada, respuesta) {
-    integrante.buscarIntegrante(entrada, respuesta);
-});
-
-app.post('/crearIntegrante', function (entrada, respuesta) {
-    integrante.crearIntegrante(entrada, respuesta);
-});
-
-app.post('/eliminarIntegrante', function (entrada, respuesta) {
-    integrante.eliminarIntegrante(entrada, respuesta);
-});
-
-app.post('/modificarIntegrante', function (entrada, respuesta) {
-    integrante.modificarIntegrante(entrada, respuesta);
-});
-
-
-
-/*Actividades*/
-
-app.post('/crearActividad', function (entrada, respuesta) {
-    actividad.crearActividad(entrada, respuesta);
-});
-
-app.post('/modificarActividad', function (entrada, respuesta) {
-    actividad.modificarActividad(entrada, respuesta);
-
-});
-
-app.post('/listarActividad', function (entrada, respuesta) {
-    actividad.listarActividad(entrada, respuesta);
-});
-
-app.post('/eliminarActividad', function (entrada, respuesta) {
-    actividad.eliminarActividad(entrada, respuesta);
-});
-
-app.post('/listarForaneaIntegrantes', function (entrada, respuesta) {
-    actividad.listadoIntegrantes(entrada, respuesta);
-
-});
-
-
-app.get('/listarForaneaProyectos', function (entrada, respuesta) {
-    actividad.listadoProyectos(entrada, respuesta);
-});
-//////////////////////////////////////////
-
-app.post('/listadoEstado', function (entrada, respuesta) {
-    estado.listadoEstado(entrada, respuesta);
-});
-
-
-
-
-
-
+//exporto la configuracion del servidor
 exports.configurarServidor = configurarServidor;
 

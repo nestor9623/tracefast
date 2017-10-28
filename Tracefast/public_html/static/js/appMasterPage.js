@@ -24,34 +24,7 @@ app.config(function ($routeProvider) {
                 //controller: 'controladorProyectos',
                 controller: 'controladorProyectos',
                 templateUrl: 'Director/proyectos.html'
-            })
-            
-            .when('/Cargos', {
-                controller: 'controladorCargos',
-                templateUrl: 'Director/cargos.html'
-            })
-
-              .when('/Recursos', {
-                controller: 'controladorRecursos',
-                templateUrl: 'Director/recursos.html'
-            })
-             .when('/Tareas', {
-                controller: 'controladorTareas',
-                templateUrl: 'Director/tareas.html'
-            })
-             .when('/Reunion', {
-                controller: 'controladorReunion',
-                templateUrl: 'Director/reunion.html'
-            })
-            .when('/Integrantes',{
-                controller:'controladorIntegrante',
-                templateUrl:'Director/integrante.html'
-            })
-            .when('/Actividades',{
-                controller:'controladorActividades',
-                templateUrl:'Director/actividades.html'
-
-            })    
+            })  
             .otherwise({
                 redirectTo: '/'
             });
